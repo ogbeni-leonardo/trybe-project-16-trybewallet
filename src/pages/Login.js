@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { func } from 'prop-types';
 
-import { setEmail } from '../redux/actions/index';
+import { setEmail } from '../redux/actions/user.action';
 
 class Login extends React.Component {
   constructor() {

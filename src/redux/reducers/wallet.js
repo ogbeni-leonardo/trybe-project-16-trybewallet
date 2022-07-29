@@ -1,4 +1,6 @@
-import { SET_CURRENCIES, UPDATE_EXPENSES, UPDATE_TOTAL_FIELD } from '../actions';
+import { SET_CURRENCIES } from '../actions/currencies.action';
+import { UPDATE_EXPENSES, DELETE_EXPENSE } from '../actions/expenses.action';
+import { UPDATE_TOTAL_FIELD } from '../actions/totalField.action';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -19,6 +21,12 @@ export default function wallet(state = INITIAL_STATE, action) {
         ...state.expenses,
         { id: state.expenses.length, ...action.payload },
       ],
+    };
+  case DELETE_EXPENSE:
+    return {
+      ...state,
+      expenses: state.expenses.filter(({ id }) => id !== action.payload.id),
+      totalField: (Number(state.totalField) - action.payload.total).toFixed(2),
     };
   case UPDATE_TOTAL_FIELD:
     return {
