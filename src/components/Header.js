@@ -2,15 +2,34 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { string } from 'prop-types';
 
+import HeaderContainer, {
+  AppName,
+  UserInfos,
+  UserEmail,
+  TotalField,
+} from './Header.styles';
+
 class Header extends Component {
   render() {
     const { email, total } = this.props;
     return (
-      <div>
-        <p data-testid="email-field">{email}</p>
-        <p data-testid="total-field">{total}</p>
-        <p data-testid="header-currency-field">BRL</p>
-      </div>
+      <HeaderContainer>
+        <AppName>
+          Trybe
+          <span>Wallet</span>
+        </AppName>
+
+        <UserInfos>
+          <UserEmail>
+            <span data-testid="email-field">{email}</span>
+          </UserEmail>
+
+          <TotalField>
+            <p data-testid="total-field">{total}</p>
+            <p data-testid="header-currency-field">BRL</p>
+          </TotalField>
+        </UserInfos>
+      </HeaderContainer>
     );
   }
 }

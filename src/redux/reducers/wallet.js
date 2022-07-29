@@ -12,7 +12,7 @@ const INITIAL_STATE = {
   expenses: [],
   editor: false,
   idToEdit: 0,
-  totalField: '0',
+  totalField: '0.00',
 };
 
 export default function wallet(state = INITIAL_STATE, action) {

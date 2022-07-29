@@ -70,7 +70,8 @@ class Login extends React.Component {
       <LoginPage>
         <LoginForm>
           <LoginFormTitle>
-            Wallet
+            Trybe
+            <span>Wallet</span>
           </LoginFormTitle>
 
           <LoginFormLabel htmlFor="name">

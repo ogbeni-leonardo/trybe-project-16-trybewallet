@@ -11,7 +11,7 @@ export const LoginForm = styled.form`
   align-items: center;
   background-color: ${({ theme }) => theme.background};
   border-radius: 5px;
-  box-shadow: 0 0 15px rgba(0 0 0 / 20%);
+  box-shadow: 0 0 15px rgba(0 0 0 / 10%);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -23,13 +23,18 @@ export const LoginForm = styled.form`
 export const LoginFormTitle = styled.h1`
   align-items: center;
   align-self: stretch;
-  background-color: ${({ theme }) => theme.theme};
+  background-color: ${({ theme }) => theme.dark};
   color: ${({ theme }) => theme.light};
   display: flex;
   font-size: 1.9rem;
   margin-bottom: 15px;
-  padding-block: 40px;
+  padding-block: 45px;
   padding-left: 25px;
+
+  & span {
+    font-size: 1.9rem;
+    color: ${({ theme }) => theme.theme};
+  }
 `;
 
 export const LoginFormLabel = styled.label`
