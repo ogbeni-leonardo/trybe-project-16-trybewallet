@@ -2,7 +2,7 @@ import { SET_EMAIL } from '../actions/user.action';
 
 const INITIAL_STATE = {
   email: '',
-  theme: 'dark',
+  theme: 'light',
 };
 
 export default function user(state = INITIAL_STATE, action) {

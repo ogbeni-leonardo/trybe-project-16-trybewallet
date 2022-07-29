@@ -5,6 +5,11 @@ import { arrayOf, shape, number, func } from 'prop-types';
 import { deleteExpense, editExpense } from '../redux/actions/expenses.action';
 import { updateTotalField } from '../redux/actions/totalField.action';
 
+import StyledTable, {
+  StyledButtonsContainer,
+  StyledTableButton,
+} from './Table.styles';
+
 class Table extends Component {
   constructor() {
     super();
@@ -28,55 +33,57 @@ class Table extends Component {
     const processExpenses = expenses.map((expense) => this.processExpense(expense));
 
     return (
-      <table>
+      <StyledTable>
         <thead>
           <tr>
-            <th>Descrição</th>
-            <th>Tag</th>
-            <th>Método de pagamento</th>
-            <th>Valor</th>
-            <th>Moeda</th>
-            <th>Câmbio utilizado</th>
-            <th>Valor convertido</th>
-            <th>Moeda de conversão</th>
-            <th>Editar/Excluir</th>
+            <th id="th1">Descrição</th>
+            <th id="th2">Tag</th>
+            <th id="th3">Método de pagamento</th>
+            <th id="th4">Valor</th>
+            <th id="th5">Moeda</th>
+            <th id="th6">Câmbio utilizado</th>
+            <th id="th7">Valor convertido</th>
+            <th id="th8">Moeda de conversão</th>
+            <th id="th9">Editar/Excluir</th>
           </tr>
         </thead>
 
         <tbody>
           { processExpenses.map((expense) => (
             <tr key={ Math.random() }>
-              <td>{ expense.description }</td>
-              <td>{ expense.tag }</td>
-              <td>{ expense.method }</td>
-              <td>{ Number(expense.value).toFixed(2) }</td>
-              <td>{ expense.name }</td>
-              <td>{ Number(expense.ask).toFixed(2) }</td>
-              <td>{ expense.total }</td>
-              <td>Real</td>
-              <td>
-                <button
-                  type="button"
-                  data-testid="delete-btn"
-                  onClick={ () => {
-                    removeExpense(expense);
-                    updateTotal();
-                  } }
-                >
-                  Excluir
-                </button>
-                <button
-                  type="button"
-                  data-testid="edit-btn"
-                  onClick={ () => editorMode(expense.id) }
-                >
-                  Editar
-                </button>
+              <td headers="th1">{ expense.description }</td>
+              <td headers="th2">{ expense.tag }</td>
+              <td headers="th3">{ expense.method }</td>
+              <td headers="th4">{ Number(expense.value).toFixed(2) }</td>
+              <td headers="th5">{ expense.name }</td>
+              <td headers="th6">{ Number(expense.ask).toFixed(2) }</td>
+              <td headers="th7">{ expense.total }</td>
+              <td headers="th8">Real</td>
+              <td headers="th9">
+                <StyledButtonsContainer>
+                  <StyledTableButton
+                    backgroundColor="#27ae60"
+                    data-testid="edit-btn"
+                    onClick={ () => editorMode(expense.id) }
+                    type="button"
+                  >
+                    Editar
+                  </StyledTableButton>
+
+                  <StyledTableButton
+                    backgroundColor="#e74c3c"
+                    data-testid="delete-btn"
+                    onClick={ () => { removeExpense(expense); updateTotal(); } }
+                    type="button"
+                  >
+                    Excluir
+                  </StyledTableButton>
+                </StyledButtonsContainer>
               </td>
             </tr>
           )) }
         </tbody>
-      </table>
+      </StyledTable>
     );
   }
 }
