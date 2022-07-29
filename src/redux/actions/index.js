@@ -28,10 +28,10 @@ export const setExpense = (expense) => async (dispatch) => {
   const currencies = await fetchCurrenciesAPI();
   dispatch(updateExpenses({ ...expense, exchangeRates: currencies }));
 
-  const expenseValue = Number(expense.value);
-  const currency = expense.currency !== '' ? expense.currency : 'USD';
+  const { value, currency } = expense;
+
   const { ask } = Object.values(currencies)
     .find(({ code }) => code === currency);
 
-  dispatch(updateTotalField(expenseValue * Number(ask)));
+  dispatch(updateTotalField(Number(value) * Number(ask)));
 };
