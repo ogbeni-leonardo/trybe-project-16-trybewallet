@@ -6,6 +6,13 @@ import { getCurrencies } from '../redux/actions/currencies.action';
 import { addExpenseThunk, updateExpense } from '../redux/actions/expenses.action';
 import { updateTotalField } from '../redux/actions/totalField.action';
 
+import WalletFormContainer, {
+  WalletFormLabel,
+  WalletFormInput,
+  WalletFormSelect,
+  WalletFormButton,
+} from './WalletForm.styles';
+
 class WalletForm extends Component {
   constructor() {
     super();
@@ -22,8 +29,6 @@ class WalletForm extends Component {
       tag: 'Alimentação',
       editorMode: false,
     };
-
-    console.log('oioi');
   }
 
   componentDidMount() {
@@ -100,67 +105,84 @@ class WalletForm extends Component {
     if (editor && !editorMode) this.editorMode();
 
     return (
-      <div>
-        <input
-          placeholder="despesa"
-          data-testid="value-input"
-          name="value"
-          value={ value }
-          onChange={ this.handleChange }
-        />
-        <input
-          placeholder="descrição"
-          data-testid="description-input"
-          name="description"
-          value={ description }
-          onChange={ this.handleChange }
-        />
-        <select
-          aria-label="label"
-          data-testid="currency-input"
-          name="currency"
-          value={ currency }
-          onChange={ this.handleChange }
-        >
-          { currencies.map((currencyName) => (
-            <option
-              key={ Math.random() }
-            >
-              {currencyName}
-            </option>
-          )) }
-        </select>
+      <WalletFormContainer>
+        <WalletFormLabel htmlFor="expense">
+          Valor
+          <WalletFormInput
+            placeholder="Ex: 1.99"
+            data-testid="value-input"
+            id="expense"
+            name="value"
+            value={ value }
+            onChange={ this.handleChange }
+          />
+        </WalletFormLabel>
 
-        <select
-          aria-label="metodo"
-          data-testid="method-input"
-          name="method"
-          value={ method }
-          onChange={ this.handleChange }
-        >
-          <option>Dinheiro</option>
-          <option>Cartão de crédito</option>
-          <option>Cartão de débito</option>
-        </select>
+        <WalletFormLabel htmlFor="description">
+          Descrição
+          <WalletFormInput
+            placeholder="Ex: Hambúrguer"
+            data-testid="description-input"
+            id="description"
+            name="description"
+            value={ description }
+            onChange={ this.handleChange }
+            width="200px"
+          />
+        </WalletFormLabel>
+        <WalletFormLabel htmlFor="currency">
+          Moeda
+          <WalletFormSelect
+            data-testid="currency-input"
+            id="currency"
+            name="currency"
+            value={ currency }
+            onChange={ this.handleChange }
+          >
+            { currencies.map((currencyName) => (
+              <option key={ Math.random() }>
+                {currencyName}
+              </option>
+            )) }
+          </WalletFormSelect>
+        </WalletFormLabel>
 
-        <select
-          aria-label="categoria"
-          data-testid="tag-input"
-          name="tag"
-          value={ tag }
-          onChange={ this.handleChange }
-        >
-          <option>Alimentação</option>
-          <option>Lazer</option>
-          <option>Trabalho</option>
-          <option>Transporte</option>
-          <option>Saúde</option>
-        </select>
+        <WalletFormLabel htmlFor="method">
+          Pagamento
+          <WalletFormSelect
+            data-testid="method-input"
+            id="method"
+            name="method"
+            value={ method }
+            onChange={ this.handleChange }
+          >
+            <option>Dinheiro</option>
+            <option>Cartão de crédito</option>
+            <option>Cartão de débito</option>
+          </WalletFormSelect>
+        </WalletFormLabel>
 
-        <button type="button" onClick={ this.handleClick }>
+        <WalletFormLabel htmlFor="tag">
+          Categoria
+          <WalletFormSelect
+            data-testid="tag-input"
+            id="tag"
+            name="tag"
+            value={ tag }
+            onChange={ this.handleChange }
+          >
+            <option>Alimentação</option>
+            <option>Lazer</option>
+            <option>Trabalho</option>
+            <option>Transporte</option>
+            <option>Saúde</option>
+          </WalletFormSelect>
+        </WalletFormLabel>
+
+        <WalletFormButton type="button" onClick={ this.handleClick }>
           { editorMode ? 'Editar despesa' : 'Adicionar despesa' }
-        </button>
-      </div>
+        </WalletFormButton>
+      </WalletFormContainer>
     );
   }
 }
