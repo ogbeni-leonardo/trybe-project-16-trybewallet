@@ -5,6 +5,14 @@ import { func } from 'prop-types';
 
 import { setEmail } from '../redux/actions/user.action';
 
+import LoginPage, {
+  LoginForm,
+  LoginFormTitle,
+  LoginFormLabel,
+  LoginFormInput,
+  LoginFormButton,
+} from '../assets/css/Login.styles';
+
 class Login extends React.Component {
   constructor() {
     super();
@@ -14,9 +22,9 @@ class Login extends React.Component {
     this.validateForm = this.validateForm.bind(this);
 
     this.state = {
-      emailInput: '',
-      passwordInput: '',
-      loginButtonIsDisabled: true,
+      email: '',
+      password: '',
+      submitIsDisabled: true,
       redirect: false,
     };
   }
@@ -25,69 +33,81 @@ class Login extends React.Component {
     this.setState({ [name]: value }, () => this.validateForm());
   }
 
-  handleClick() {
-    const { emailInput } = this.state;
+  handleClick(event) {
+    event.preventDefault();
+
+    const { email } = this.state;
     const { dispatch } = this.props;
 
-    dispatch(setEmail(emailInput));
+    dispatch(setEmail(email));
 
     this.setState({ redirect: true });
   }
 
   validateForm() {
-    const { emailInput, passwordInput } = this.state;
+    const { email, password } = this.state;
 
-    const hasValidEmail = /\S+@\S+\.\S+/.test(emailInput);
+    const hasValidEmail = /\S+@\S+\.\S+/.test(email);
     const MIN_PASSWORD_SIZE = 6;
-    const hasValidPassword = passwordInput.length >= MIN_PASSWORD_SIZE;
+    const hasValidPassword = password.length >= MIN_PASSWORD_SIZE;
 
     this.setState({
-      loginButtonIsDisabled: !(hasValidEmail && hasValidPassword),
+      submitIsDisabled: !(hasValidEmail && hasValidPassword),
     });
   }
 
   render() {
     const {
-      emailInput,
-      passwordInput,
-      loginButtonIsDisabled,
+      email,
+      password,
+      submitIsDisabled,
       redirect,
     } = this.state;
 
     if (redirect) return <Redirect to="/carteira" />;
 
     return (
-      <div>
-        <label htmlFor="name">
-          E-mail:
-          <input
-            id="name"
-            type="text"
-            name="emailInput"
-            value={ emailInput }
-            onChange={ this.handleChange }
-            data-testid="email-input"
-          />
-        </label>
-        <label htmlFor="password">
-          Senha:
-          <input
-            id="password"
-            type="password"
-            name="passwordInput"
-            value={ passwordInput }
-            onChange={ this.handleChange }
-            data-testid="password-input"
-          />
-        </label>
-        <button
-          type="button"
-          disabled={ loginButtonIsDisabled }
-          onClick={ this.handleClick }
-        >
-          Entrar
-        </button>
-      </div>
+      <LoginPage>
+        <LoginForm>
+          <LoginFormTitle>
+            Wallet
+          </LoginFormTitle>
+
+          <LoginFormLabel htmlFor="name">
+            E-mail
+            <LoginFormInput
+              data-testid="email-input"
+              id="name"
+              name="email"
+              onChange={ this.handleChange }
+              placeholder="Digite seu e-mail"
+              type="text"
+              value={ email }
+            />
+          </LoginFormLabel>
+
+          <LoginFormLabel htmlFor="password">
+            Senha
+            <LoginFormInput
+              data-testid="password-input"
+              id="password"
+              name="password"
+              onChange={ this.handleChange }
+              placeholder="Digite sua senha"
+              type="password"
+              value={ password }
+            />
+          </LoginFormLabel>
+
+          <LoginFormButton
+            disabled={ submitIsDisabled }
+            onClick={ this.handleClick }
+            type="submit"
+          >
+            Entrar
+          </LoginFormButton>
+        </LoginForm>
+      </LoginPage>
     );
   }
 }
