@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { arrayOf, shape, number, func } from 'prop-types';
 
-import { deleteExpense } from '../redux/actions/expenses.action';
+import { deleteExpense, editExpense } from '../redux/actions/expenses.action';
+import { updateTotalField } from '../redux/actions/totalField.action';
 
 class Table extends Component {
   constructor() {
@@ -23,7 +24,7 @@ class Table extends Component {
   }
 
   render() {
-    const { expenses, removeExpense } = this.props;
+    const { expenses, removeExpense, updateTotal, editorMode } = this.props;
     const processExpenses = expenses.map((expense) => this.processExpense(expense));
 
     return (
@@ -57,9 +58,19 @@ class Table extends Component {
                 <button
                   type="button"
                   data-testid="delete-btn"
-                  onClick={ () => removeExpense(expense) }
+                  onClick={ () => {
+                    removeExpense(expense);
+                    updateTotal();
+                  } }
                 >
                   Excluir
+                </button>
+                <button
+                  type="button"
+                  data-testid="edit-btn"
+                  onClick={ () => editorMode(expense.id) }
+                >
+                  Editar
                 </button>
               </td>
             </tr>
@@ -73,6 +84,8 @@ class Table extends Component {
 Table.propTypes = {
   expenses: arrayOf(shape({ id: number })).isRequired,
   removeExpense: func.isRequired,
+  updateTotal: func.isRequired,
+  editorMode: func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -81,6 +94,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   removeExpense: (expense) => dispatch(deleteExpense(expense)),
+  updateTotal: () => dispatch(updateTotalField()),
+  editorMode: (id) => dispatch(editExpense(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

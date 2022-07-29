@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { func, arrayOf, string } from 'prop-types';
+import { func, arrayOf, string, bool, shape, number } from 'prop-types';
 import { connect } from 'react-redux';
 
 import { getCurrencies } from '../redux/actions/currencies.action';
-import { setExpense } from '../redux/actions/expenses.action';
+import { addExpenseThunk, updateExpense } from '../redux/actions/expenses.action';
+import { updateTotalField } from '../redux/actions/totalField.action';
 
 class WalletForm extends Component {
   constructor() {
@@ -11,6 +12,7 @@ class WalletForm extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.editorMode = this.editorMode.bind(this);
 
     this.state = {
       value: '',
@@ -18,7 +20,10 @@ class WalletForm extends Component {
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
+      editorMode: false,
     };
+
+    console.log('oioi');
   }
 
   componentDidMount() {
@@ -31,7 +36,14 @@ class WalletForm extends Component {
   }
 
   handleClick() {
-    const { updateExpenses } = this.props;
+    const {
+      addExpense,
+      updateExpensesList,
+      updateTotal,
+      expenses,
+      editor,
+      idToEdit,
+    } = this.props;
 
     const {
       value,
@@ -41,15 +53,36 @@ class WalletForm extends Component {
       tag,
     } = this.state;
 
-    updateExpenses({
-      value,
-      description,
-      currency,
-      method,
-      tag,
-    });
+    if (editor) {
+      const updatedExpanses = expenses.map((expense) => {
+        if (expense.id === idToEdit) {
+          return { ...expense, value, description, currency, method, tag };
+        }
+        return expense;
+      });
+      updateExpensesList(updatedExpanses);
+      updateTotal();
+    } else {
+      addExpense({ value, description, currency, method, tag });
+    }
 
-    this.setState({ value: '', description: '' });
+    this.setState({ value: '', description: '', editorMode: false });
+  }
+
+  editorMode() {
+    const { editor, idToEdit, expenses } = this.props;
+
+    if (editor) {
+      const {
+        value,
+        description,
+        currency,
+        method,
+        tag,
+      } = expenses.find(({ id }) => id === idToEdit);
+
+      this.setState({ editorMode: true, value, description, currency, method, tag });
+    }
   }
 
   render() {
@@ -59,9 +92,12 @@ class WalletForm extends Component {
       currency,
       method,
       tag,
+      editorMode,
     } = this.state;
 
-    const { currencies } = this.props;
+    const { currencies, editor } = this.props;
+
+    if (editor && !editorMode) this.editorMode();
 
     return (
       <div>
@@ -121,7 +157,9 @@ class WalletForm extends Component {
           <option>Saúde</option>
         </select>
 
-        <button type="button" onClick={ this.handleClick }>Adicionar despesa</button>
+        <button type="button" onClick={ this.handleClick }>
+          { editorMode ? 'Editar despesa' : 'Adicionar despesa' }
+        </button>
       </div>
     );
   }
@@ -129,17 +167,27 @@ class WalletForm extends Component {
 
 WalletForm.propTypes = {
   updateCurrencies: func.isRequired,
-  updateExpenses: func.isRequired,
+  addExpense: func.isRequired,
+  updateExpensesList: func.isRequired,
+  updateTotal: func.isRequired,
   currencies: arrayOf(string).isRequired,
+  expenses: arrayOf(shape({ currency: string })).isRequired,
+  editor: bool.isRequired,
+  idToEdit: number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  expenses: state.wallet.expenses,
+  editor: state.wallet.editor,
+  idToEdit: state.wallet.idToEdit,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   updateCurrencies: () => dispatch(getCurrencies()),
-  updateExpenses: (expense) => dispatch(setExpense(expense)),
+  addExpense: (expense) => dispatch(addExpenseThunk(expense)),
+  updateTotal: () => dispatch(updateTotalField()),
+  updateExpensesList: (expenses) => dispatch(updateExpense(expenses)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(WalletForm);
