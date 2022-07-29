@@ -5,7 +5,7 @@ const WalletFormContainer = styled.form`
   column-gap: 3px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: center;
   row-gap: 10px;
 `;
 

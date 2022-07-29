@@ -3,6 +3,7 @@ import styled from 'styled-components';
 const StyledTable = styled.table`
   background-color: ${({ theme }) => theme.background};
   border-collapse: collapse;
+  width: 100%;
 
   & tr:nth-child(odd) {
     background-color: ${({ theme }) => theme.primary};

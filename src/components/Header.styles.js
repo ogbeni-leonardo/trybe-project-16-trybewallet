@@ -4,9 +4,17 @@ const HeaderContainer = styled.header`
   align-items: center;
   background-color: ${({ theme }) => theme.background};
   border-bottom: 2px solid ${({ theme }) => theme.theme};
+  column-gap: 30px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   padding: 30px;
+  row-gap: 10px;
+
+  @media screen and (max-width: 440px) {
+    align-items: center;
+    flex-direction: column;
+  }
 `;
 
 export const AppName = styled.h1`
@@ -23,6 +31,10 @@ export const UserInfos = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 5px;
+
+  @media screen and (max-width: 440px) {
+    align-items: center;
+  }
 `;
 
 export const UserEmail = styled.p`
