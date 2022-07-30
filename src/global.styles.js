@@ -5,7 +5,7 @@ const GlobalStyles = createGlobalStyle`
   * {
     border: 0;
     box-sizing: border-box;
-    color: ${({ theme }) => theme.secondary};
+    color: ${({ theme }) => theme.fontColor};
     font-family: Inter;
     font-size: 14px;
     margin: 0;
@@ -19,7 +19,8 @@ const GlobalStyles = createGlobalStyle`
   }
 
   body {
-    background-color: ${({ theme }) => theme.body};
+    background-color: ${({ theme }) => theme.bodyBackground};
+    overflow: hidden;
   }
 
   button {
@@ -32,8 +33,8 @@ const GlobalStyles = createGlobalStyle`
   }
 
   button:disabled {
-    background-color: ${({ theme }) => theme.primary};
-    color: ${({ theme }) => theme.secondary};
+    background-color: ${({ theme }) => theme.secondary};
+    color: ${({ theme }) => theme.fontColor};
     cursor: not-allowed;
   }
 `;

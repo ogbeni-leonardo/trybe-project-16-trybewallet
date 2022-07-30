@@ -9,7 +9,7 @@ const LoginPage = styled.div`
 
 export const LoginForm = styled.form`
   align-items: center;
-  background-color: ${({ theme }) => theme.background};
+  background-color: ${({ theme }) => theme.defaultBackground};
   border-radius: 5px;
   box-shadow: 0 0 15px rgba(0 0 0 / 10%);
   display: flex;
@@ -46,10 +46,10 @@ export const LoginFormLabel = styled.label`
 
 export const LoginFormInput = styled.input`
   border-radius: 5px;
-  color: ${({ theme }) => theme.secondary};
-  background-color: ${({ theme }) => theme.primary};
+  background-color: ${({ theme }) => theme.secondary};
+  color: ${({ theme }) => theme.fontColor};
   padding: 10px 15px;
-  width: 250px;
+  width: 270px;
 `;
 
 export const LoginFormButton = styled.button`

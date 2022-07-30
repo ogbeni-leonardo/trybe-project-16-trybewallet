@@ -20,9 +20,9 @@ export const WalletFormLabel = styled.label`
 `;
 
 export const WalletFormInput = styled.input`
-  background-color: ${({ theme }) => theme.primary};
+  background-color: ${({ theme }) => theme.secondary};
   border-radius: 5px;
-  color: ${({ theme }) => theme.secondary};
+  color: ${({ theme }) => theme.fontColor};
   height: 35px;
   padding-inline: 10px;
   text-align: center;
@@ -30,7 +30,7 @@ export const WalletFormInput = styled.input`
 `;
 
 export const WalletFormSelect = styled.select`
-  background-color: ${({ theme }) => theme.primary};
+  background-color: ${({ theme }) => theme.secondary};
   border-radius: 5px;
   height: 35px;
   padding-inline: 10px;

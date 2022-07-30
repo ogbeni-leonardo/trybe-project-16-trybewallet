@@ -1,13 +1,8 @@
 import styled from 'styled-components';
 
 const StyledTable = styled.table`
-  background-color: ${({ theme }) => theme.background};
   border-collapse: collapse;
   width: 100%;
-
-  & tr:nth-child(odd) {
-    background-color: ${({ theme }) => theme.primary};
-  }
 
   & th {
     background-color: ${({ theme }) => theme.theme};
@@ -28,11 +23,20 @@ const StyledTable = styled.table`
     padding-block: 6px;
     text-align: center;
   }
+
+  & tr:nth-child(odd) {
+    background-color: ${({ theme }) => theme.secondary};
+  }
+
+  & tr:nth-child(even) {
+    background-color: ${({ theme }) => theme.defaultBackground};
+  }
 `;
 
 export const StyledButtonsContainer = styled.div`
   display: flex;
   column-gap: 5px;
+  justify-content: center;
 `;
 
 export const StyledTableButton = styled.button`
