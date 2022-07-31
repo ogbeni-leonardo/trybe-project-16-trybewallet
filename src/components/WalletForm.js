@@ -105,7 +105,7 @@ class WalletForm extends Component {
     if (editor && !editorMode) this.editorMode();
 
     return (
-      <WalletFormContainer>
+      <WalletFormContainer data-testid="wallet-form">
         <WalletFormLabel htmlFor="expense">
           Valor
           <WalletFormInput
@@ -140,7 +140,7 @@ class WalletForm extends Component {
             onChange={ this.handleChange }
           >
             { currencies.map((currencyName) => (
-              <option key={ Math.random() }>
+              <option key={ Math.random() } value={ currencyName }>
                 {currencyName}
               </option>
             )) }
@@ -156,9 +156,9 @@ class WalletForm extends Component {
             value={ method }
             onChange={ this.handleChange }
           >
-            <option>Dinheiro</option>
-            <option>Cartão de crédito</option>
-            <option>Cartão de débito</option>
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Cartão de crédito">Cartão de crédito</option>
+            <option value="Cartão de débito">Cartão de débito</option>
           </WalletFormSelect>
         </WalletFormLabel>
 
@@ -171,11 +171,11 @@ class WalletForm extends Component {
             value={ tag }
             onChange={ this.handleChange }
           >
-            <option>Alimentação</option>
-            <option>Lazer</option>
-            <option>Trabalho</option>
-            <option>Transporte</option>
-            <option>Saúde</option>
+            <option value="Alimentação">Alimentação</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Saúde">Saúde</option>
           </WalletFormSelect>
         </WalletFormLabel>
 

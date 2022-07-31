@@ -13,7 +13,7 @@ class Header extends Component {
   render() {
     const { email, total } = this.props;
     return (
-      <HeaderContainer>
+      <HeaderContainer data-testid="header">
         <AppName>
           Trybe
           <span>Wallet</span>

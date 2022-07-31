@@ -45,8 +45,6 @@ export default function wallet(state = INITIAL_STATE, action) {
           .find(([currencyName]) => currencyName === cur.currency);
 
         const expenseTotal = Number(cur.value) * Number(currencyData.ask);
-        console.log(expenseTotal);
-
         return acc + expenseTotal;
       }, 0)).toFixed(2),
     };

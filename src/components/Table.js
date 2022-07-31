@@ -33,7 +33,7 @@ class Table extends Component {
     const processExpenses = expenses.map((expense) => this.processExpense(expense));
 
     return (
-      <StyledTable>
+      <StyledTable data-testid="table">
         <thead>
           <tr>
             <th id="th1">Descrição</th>
