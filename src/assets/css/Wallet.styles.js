@@ -4,8 +4,8 @@ const WalletPage = styled.main`
   display: flex;
   flex-direction: column;
   min-height: max(100vh, 500px);
-  width: 100vw;
   row-gap: 40px;
+  width: 100vw;
 `;
 
 export const WalletPageFormContainer = styled.div`
@@ -21,9 +21,9 @@ export const WalletPageTableContainer = styled.div`
   display: flex;
   flex-grow: 1;
   justify-content: flex-start;
-  max-width: 100vw;
-  overflow: auto;
-  width: max(100vw, 300px);
+  margin-inline: 20px;
+  overflow-x: auto;
+  width: max(calc(100vw - 30px), 300px);
 `;
 
 export default WalletPage;

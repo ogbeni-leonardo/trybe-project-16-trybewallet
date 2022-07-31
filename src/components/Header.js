@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { string } from 'prop-types';
+import { string, number } from 'prop-types';
 
 import HeaderContainer, {
   AppName,
@@ -25,7 +25,7 @@ class Header extends Component {
           </UserEmail>
 
           <TotalField>
-            <p data-testid="total-field">{total}</p>
+            <p data-testid="total-field">{(total).toFixed(2)}</p>
             <p data-testid="header-currency-field">BRL</p>
           </TotalField>
         </UserInfos>
@@ -36,7 +36,7 @@ class Header extends Component {
 
 Header.propTypes = {
   email: string.isRequired,
-  total: string.isRequired,
+  total: number.isRequired,
 };
 
 const mapStateToProps = (state) => ({

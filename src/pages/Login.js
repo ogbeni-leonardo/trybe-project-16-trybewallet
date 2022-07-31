@@ -47,22 +47,15 @@ class Login extends React.Component {
   validateForm() {
     const { email, password } = this.state;
 
-    const hasValidEmail = /\S+@\S+\.\S+/.test(email);
     const MIN_PASSWORD_SIZE = 6;
-    const hasValidPassword = password.length >= MIN_PASSWORD_SIZE;
+    const isAValidEmail = /\S+@\S+\.\S+/.test(email);
+    const isAValidPassword = password.length >= MIN_PASSWORD_SIZE;
 
-    this.setState({
-      submitIsDisabled: !(hasValidEmail && hasValidPassword),
-    });
+    this.setState({ submitIsDisabled: !(isAValidEmail && isAValidPassword) });
   }
 
   render() {
-    const {
-      email,
-      password,
-      submitIsDisabled,
-      redirect,
-    } = this.state;
+    const { email, password, submitIsDisabled, redirect } = this.state;
 
     if (redirect) return <Redirect to="/carteira" />;
 

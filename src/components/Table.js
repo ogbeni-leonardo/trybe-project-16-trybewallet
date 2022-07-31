@@ -13,24 +13,20 @@ import StyledTable, {
 class Table extends Component {
   constructor() {
     super();
-
     this.processExpense = this.processExpense.bind(this);
   }
 
   processExpense(expense) {
-    const { value, currency: expenseCurrency, exchangeRates } = expense;
+    const { value, currency, exchangeRates } = expense;
+    const currencyData = exchangeRates[currency];
+    const { name, ask } = currencyData;
 
-    const [, expenseCurrencyData] = Object.entries(exchangeRates)
-      .find(([currencyName]) => currencyName === expenseCurrency);
-
-    const { name, ask } = expenseCurrencyData;
-
-    return { ...expense, name, ask, total: (Number(value) * Number(ask)).toFixed(2) };
+    return { ...expense, name, ask, total: (+value * +ask).toFixed(2) };
   }
 
   render() {
     const { expenses, removeExpense, updateTotal, editorMode } = this.props;
-    const processExpenses = expenses.map((expense) => this.processExpense(expense));
+    const processedExpenses = expenses.map((expense) => this.processExpense(expense));
 
     return (
       <StyledTable data-testid="table">
@@ -49,7 +45,7 @@ class Table extends Component {
         </thead>
 
         <tbody>
-          { processExpenses.map((expense) => (
+          { processedExpenses.map((expense) => (
             <tr key={ Math.random() }>
               <td headers="th1">{ expense.description }</td>
               <td headers="th2">{ expense.tag }</td>

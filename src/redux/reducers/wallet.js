@@ -12,7 +12,7 @@ const INITIAL_STATE = {
   expenses: [],
   editor: false,
   idToEdit: 0,
-  totalField: '0.00',
+  totalField: 0,
 };
 
 export default function wallet(state = INITIAL_STATE, action) {
@@ -40,11 +40,9 @@ export default function wallet(state = INITIAL_STATE, action) {
   case UPDATE_TOTAL_FIELD:
     return {
       ...state,
-      totalField: (state.expenses.reduce((acc, cur) => {
-        const [, currencyData] = Object.entries(cur.exchangeRates)
-          .find(([currencyName]) => currencyName === cur.currency);
-
-        const expenseTotal = Number(cur.value) * Number(currencyData.ask);
+      totalField: +(state.expenses.reduce((acc, { exchangeRates, currency, value }) => {
+        const { ask } = exchangeRates[currency];
+        const expenseTotal = +value * +ask;
         return acc + expenseTotal;
       }, 0)).toFixed(2),
     };

@@ -12,9 +12,9 @@ describe('Teste da página Wallet', () => {
     json: jest.fn().mockResolvedValue(mockData),
   });
 
-  it('Ao renderizar a página teste se os componentes estão sendo renderizados', () => {
+  it('Ao renderizar a página teste se os componentes estão sendo '
+    + 'renderizados', () => {
     renderWithRedux(<Wallet />);
-
     expect(screen.getByTestId('header')).toBeInTheDocument();
     expect(screen.getByTestId('wallet-form')).toBeInTheDocument();
     expect(screen.getByTestId('table')).toBeInTheDocument();
@@ -22,11 +22,11 @@ describe('Teste da página Wallet', () => {
 
   it('Verifica se na primeira renderização o fetch é chamado', () => {
     renderWithRedux(<Wallet />);
-
     expect(fetch).toHaveBeenCalled();
   });
 
-  it('Verifica se ao preencher o componente WalletForm e adicionar a despesa ela é renderizada', async () => {
+  it('Verifica se ao preencher o componente WalletForm e adicionar '
+    + 'a despesa ela é renderizada', async () => {
     renderWithRedux(<Wallet />);
 
     await waitFor(() => {
@@ -36,30 +36,30 @@ describe('Teste da página Wallet', () => {
     userEvent.type(screen.getByLabelText(/valor/i), '938');
     userEvent.type(screen.getByLabelText(/descrição/i), 'Playstation 5');
     userEvent.selectOptions(screen.getByLabelText(/moeda/i), ['EUR']);
-    userEvent.selectOptions(screen.getByLabelText(/pagamento/i), [
-      'Cartão de crédito',
-    ]);
-    userEvent.selectOptions(screen.getByLabelText(/categoria/i), ['Lazer']);
-    userEvent.click(screen.getByRole('button', { name: /adicionar despesa/i }));
+    userEvent.selectOptions(screen
+      .getByLabelText(/pagamento/i), ['Cartão de crédito']);
+    userEvent.selectOptions(screen
+      .getByLabelText(/categoria/i), ['Lazer']);
+    userEvent.click(screen
+      .getByRole('button', { name: /adicionar despesa/i }));
 
     await waitFor(() => {
       expect(fetch).toHaveBeenCalled();
     });
 
-    expect(screen.getByRole('cell', { name: '938.00' })).toBeInTheDocument();
-    expect(
-      screen.getByRole('cell', { name: 'Playstation 5' })
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole('cell', { name: 'Euro/Real Brasileiro' })
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole('cell', { name: 'Cartão de crédito' })
-    ).toBeInTheDocument();
+    expect(screen.getByRole('cell', { name: '938.00' }))
+      .toBeInTheDocument();
+    expect(screen.getByRole('cell', { name: 'Playstation 5' }))
+      .toBeInTheDocument();
+    expect(screen.getByRole('cell', { name: 'Euro/Real Brasileiro' }))
+      .toBeInTheDocument();
+    expect(screen.getByRole('cell', { name: 'Cartão de crédito' }))
+      .toBeInTheDocument();
     expect(screen.getByRole('cell', { name: 'Lazer' })).toBeInTheDocument();
   });
 
-  it('Verifica se ao clicar no botão de remover despesa ela deixa de ser renderizada', async () => {
+  it('Verifica se ao clicar no botão de remover despesa ela deixa de '
+    + 'ser renderizada', async () => {
     renderWithRedux(<Wallet />);
 
     await waitFor(() => {
@@ -69,11 +69,12 @@ describe('Teste da página Wallet', () => {
     userEvent.type(screen.getByLabelText(/valor/i), '938');
     userEvent.type(screen.getByLabelText(/descrição/i), 'Playstation 5');
     userEvent.selectOptions(screen.getByLabelText(/moeda/i), ['EUR']);
-    userEvent.selectOptions(screen.getByLabelText(/pagamento/i), [
-      'Cartão de crédito',
-    ]);
-    userEvent.selectOptions(screen.getByLabelText(/categoria/i), ['Lazer']);
-    userEvent.click(screen.getByRole('button', { name: /adicionar despesa/i }));
+    userEvent.selectOptions(screen
+      .getByLabelText(/pagamento/i), ['Cartão de crédito']);
+    userEvent.selectOptions(screen
+      .getByLabelText(/categoria/i), ['Lazer']);
+    userEvent.click(screen
+      .getByRole('button', { name: /adicionar despesa/i }));
 
     await waitFor(() => {
       expect(fetch).toHaveBeenCalled();
@@ -81,28 +82,22 @@ describe('Teste da página Wallet', () => {
 
     userEvent.click(screen.getByTestId('delete-btn'));
 
-    expect(
-      screen.queryByRole('cell', { name: '938.00' })
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByRole('cell', { name: 'Playstation 5' })
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByRole('cell', { name: 'Euro/Real Brasileiro' })
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByRole('cell', { name: 'Cartão de crédito' })
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByRole('cell', { name: 'Lazer' })
-    ).not.toBeInTheDocument();
+    expect(screen.queryByRole('cell', { name: '938.00' }))
+      .not.toBeInTheDocument();
+    expect(screen.queryByRole('cell', { name: 'Playstation 5' }))
+      .not.toBeInTheDocument();
+    expect(screen.queryByRole('cell', { name: 'Euro/Real Brasileiro' }))
+      .not.toBeInTheDocument();
+    expect(screen.queryByRole('cell', { name: 'Cartão de crédito' }))
+      .not.toBeInTheDocument();
+    expect(screen.queryByRole('cell', { name: 'Lazer' }))
+      .not.toBeInTheDocument();
   });
 
   it(
-    'Verifica se ao pressionar o botão de editar os valores ' +
-      'são enviados ao WalletForm e, quando atualizados, os valores ' +
-      'são renderizados na tabela',
-    async () => {
+    'Verifica se ao pressionar o botão de editar os valores '
+    + 'são enviados ao WalletForm e, quando atualizados, os valores '
+    + 'são renderizados na tabela', async () => {
       renderWithRedux(<Wallet />);
 
       await waitFor(() => {
@@ -112,13 +107,12 @@ describe('Teste da página Wallet', () => {
       userEvent.type(screen.getByLabelText(/valor/i), '938');
       userEvent.type(screen.getByLabelText(/descrição/i), 'Playstation 5');
       userEvent.selectOptions(screen.getByLabelText(/moeda/i), ['EUR']);
-      userEvent.selectOptions(screen.getByLabelText(/pagamento/i), [
-        'Cartão de crédito',
-      ]);
-      userEvent.selectOptions(screen.getByLabelText(/categoria/i), ['Lazer']);
-      userEvent.click(
-        screen.getByRole('button', { name: /adicionar despesa/i })
-      );
+      userEvent.selectOptions(screen
+        .getByLabelText(/pagamento/i), ['Cartão de crédito']);
+      userEvent.selectOptions(screen
+        .getByLabelText(/categoria/i), ['Lazer']);
+      userEvent.click(screen
+        .getByRole('button', { name: /adicionar despesa/i }));
 
       await waitFor(() => {
         expect(fetch).toHaveBeenCalled();
@@ -127,13 +121,12 @@ describe('Teste da página Wallet', () => {
       userEvent.type(screen.getByLabelText(/valor/i), '15');
       userEvent.type(screen.getByLabelText(/descrição/i), 'Paçoca');
       userEvent.selectOptions(screen.getByLabelText(/moeda/i), ['USD']);
-      userEvent.selectOptions(screen.getByLabelText(/pagamento/i), [
-        'Cartão de débito',
-      ]);
-      userEvent.selectOptions(screen.getByLabelText(/categoria/i), ['Alimentação']);
-      userEvent.click(
-        screen.getByRole('button', { name: /adicionar despesa/i })
-      );
+      userEvent.selectOptions(screen
+        .getByLabelText(/pagamento/i), ['Cartão de débito']);
+      userEvent.selectOptions(screen
+        .getByLabelText(/categoria/i), ['Alimentação']);
+      userEvent.click(screen
+        .getByRole('button', { name: /adicionar despesa/i }));
 
       await waitFor(() => {
         expect(fetch).toHaveBeenCalled();
@@ -165,12 +158,10 @@ describe('Teste da página Wallet', () => {
         expect(fetch).toHaveBeenCalled();
       });
 
-      expect(
-        screen.queryByRole('cell', { name: '600.00' })
-      ).toBeInTheDocument();
-      expect(
-        screen.queryByRole('cell', { name: 'Playstation 6' })
-      ).toBeInTheDocument();
+      expect(screen
+        .queryByRole('cell', { name: '600.00' })).toBeInTheDocument();
+      expect(screen
+        .queryByRole('cell', { name: 'Playstation 6' })).toBeInTheDocument();
     }
   );
 });

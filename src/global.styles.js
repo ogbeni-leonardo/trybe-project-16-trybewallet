@@ -13,6 +13,16 @@ const GlobalStyles = createGlobalStyle`
     padding: 0;
   }
 
+  ::-webkit-scrollbar {
+    background-color: ${({ theme }) => theme.defaultBackground};
+    width: 5px;
+    height: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: ${({ theme }) => theme.theme};
+  }
+
   @font-face {
     font-family: Inter;
     src: local('Inter'), url('${Inter}') format('truetype');
@@ -20,7 +30,7 @@ const GlobalStyles = createGlobalStyle`
 
   body {
     background-color: ${({ theme }) => theme.bodyBackground};
-    overflow: hidden;
+    overflow-x: hidden;
   }
 
   button {

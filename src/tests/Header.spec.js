@@ -8,30 +8,23 @@ import Header from '../components/Header';
 describe('Teste do componente Header', () => {
   it('A logo da aplicação está sendo exibida', () => {
     renderWithRedux(<Header />);
-
     expect(screen.getByText(/trybe/i)).toBeInTheDocument();
     expect(screen.getByText(/wallet/i)).toBeInTheDocument();
   });
 
   it('Verifique se as informações armazenadas no estado são mostradas no cabeçalho', () => {
     const INITIAL_STATE = {
-      user: {
-        email: 'zecapagdinho@test.com',
-      },
-      wallet: {
-        totalField: '189.73',
-      },
+      user: { email: 'zecapagdinho@test.com', theme: 'light' },
+      wallet: { totalField: 189.73 },
     };
 
     renderWithRedux(<Header />, { initialState: INITIAL_STATE });
-
     expect(screen.getByText(/zecapagdinho@test.com/i)).toBeInTheDocument();
     expect(screen.getByText(/189.73/i)).toBeInTheDocument();
   });
 
   it('Verifica se a moeda padrão do usuário é exibida na tela', () => {
     renderWithRedux(<Header />);
-
     expect(screen.getByText(/brl/i)).toBeInTheDocument();
   });
 
@@ -39,7 +32,6 @@ describe('Teste do componente Header', () => {
     global.fetch = jest.fn();
 
     renderWithRedux(<Header />);
-
     expect(fetch).not.toHaveBeenCalled();
   });
 });
